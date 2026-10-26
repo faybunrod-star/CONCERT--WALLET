@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html lang="th" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CONCERT WALLET — Luxury Concert Vault</title>
+    
+    <!-- Fonts: Apple SF Pro System Fonts, Prompt (TH) & Noto Sans SC (CN) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Prompt:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+    <!-- QRCode JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        charcoal: {
+                            950: '#070606',
+                            900: '#0C0B0A',
+                            800: '#151311',
+                            700: '#211D1A',
+                            600: '#322C27'
+                        },
+                        brown: {
+                            900: '#1D140E',
+                            800: '#2A1C13',
+                            700: '#3B271A',
+                            600: '#523725'
+                        },
+                        champagne: {
+                            DEFAULT: '#D4AF37',
+                            light: '#E6C687',
+                            soft: '#F2E8DC',
+                            deep: '#A38122',
+                            glow: 'rgba(212, 175, 55, 0.25)'
+                        },
+                        beige: {
+                            DEFAULT: '#F2E8DC',
+                            dark: '#E3D5C5',
+                            soft: '#FAF5EE'
+                        }
+                    },
+                    fontFamily: {
+                        apple: ['-apple-system', 'BlinkMacSystemFont', 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', 'sans-serif'],
+                        th: ['Prompt', 'sans-serif'],
+                        cn: ['Noto Sans SC', 'sans-serif']
+                    },
+                    boxShadow: {
+                        'luxury-gold': '0 8px 32px 0 rgba(212, 175, 55, 0.15)',
+                        'gold-glow': '0 0 20px rgba(212, 175, 55, 0.25)',
+                        'inner-gold': 'inset 0 1px 1px rgba(230, 198, 135, 0.3)'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #070606;
+            color: #F2E8DC;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Prompt", "Noto Sans SC", sans-serif;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .apple-font {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Luxury Glassmorphism Effect */
+        .glass-panel {
+            background: linear-gradient(135deg, rgba(25, 20, 16, 0.7) 0%, rgba(12, 11, 10, 0.85) 100%);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(212, 175, 55, 0.18);
+        }
+
+        .glass-card {
+            background: linear-gradient(145deg, rgba(35, 27, 20, 0.65) 0%, rgba(18, 15, 12, 0.8) 100%);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(230, 198, 135, 0.15);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(212, 175, 55, 0.4);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(212, 175, 55, 0.15);
+            transform: translateY(-2px);
+        }
+
+        /* Gold Gradient Text */
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #FFF6E5 0%, #E6C687 40%, #D4AF37 70%, #99781B 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Ticket Cutout Stubs */
+        .ticket-stub {
+            position: relative;
+            background: linear-gradient(135deg, rgba(30, 23, 17, 0.9) 0%, rgba(15, 13, 11, 0.95) 100%);
+        }
+        .ticket-stub::before, .ticket-stub::after {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background-color: #070606;
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+        .ticket-stub::before { left: -12px; border-right: 1px solid rgba(212, 175, 55, 0.2); }
+        .ticket-stub::after { right: -12px; border-left: 1px solid rgba(212, 175, 55, 0.2); }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #070606;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2A1C13;
+            border-radius: 3px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #D4AF37;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-champagne selection:text-charcoal-950 pb-28">
+
+    <!-- Ambient Floating Orbs for Luxury Glow -->
+    <div class="fixed top-0 left-1/4 w-96 h-96 bg-champagne-glow rounded-full blur-[120px] pointer-events-none -z-10"></div>
+    <div class="fixed bottom-10 right-10 w-80 h-80 bg-brown-800/20 rounded-full blur-[100px] pointer-events-none -z-10"></div>
+
+    <!-- Top Navigation Header -->
+    <header class="sticky top-0 z-40 glass-panel border-b border-champagne/10 px-4 py-3.5 lg:px-8">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <!-- Brand Logo -->
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('wallet')">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-brown-800 via-charcoal-800 to-champagne/30 p-0.5 shadow-gold-glow flex items-center justify-center">
+                    <div class="w-full h-full bg-charcoal-900 rounded-full flex items-center justify-center border border-champagne/40">
+                        <i data-lucide="ticket" class="w-5 h-5 text-champagne-light"></i>
+                    </div>
+                </div>
+                <div>
+                    <span class="apple-font text-xl lg:text-2xl font-bold tracking-widest gold-gradient-text block leading-none">CONCERT WALLET</span>
+                    <span class="text-[10px] tracking-widest text-beige-dark/60 uppercase font-light">LUXURY VAULT V27.1</span>
+                </div>
+            </div>
+
+            <!-- Top Controls: Language Switcher & Offline Switch -->
+            <div class="flex items-center space-x-3">
+                <!-- Trilingual Switcher -->
+                <div class="relative inline-block text-left">
+                    <select id="langSelect" onchange="changeLanguage(this.value)" class="bg-charcoal-800/90 border border-champagne/20 text-beige text-xs rounded-full px-3 py-1.5 focus:outline-none focus:border-champagne cursor-pointer transition font-medium">
+                        <option value="th">🇹🇭 TH</option>
+                        <option value="en">🇬🇧 EN</option>
+                        <option value="cn">🇨🇳 CN</option>
+                    </select>
+                </div>
+
+                <!-- Offline Mode Toggle Switch -->
+                <button id="offlineToggle" onclick="toggleOfflineMode()" class="flex items-center space-x-2 bg-charcoal-800/80 border border-champagne/20 px-3.5 py-1.5 rounded-full text-xs text-beige-dark hover:border-champagne/50 transition">
+                    <div id="offlineIndicator" class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                    <span id="offlineStatusText" class="apple-font text-[11px] font-semibold">100% VAULT OFFLINE</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Simulated Geo-fencing Push Banner (iOS 27.1 Glass Dynamic Banner) -->
+    <div id="geofenceBanner" class="hidden fixed top-20 left-1/2 -translate-x-1/2 z-50 w-11/12 max-w-lg glass-panel rounded-2xl p-4 border border-champagne/40 shadow-2xl animate-bounce">
+        <div class="flex items-start space-x-3">
+            <div class="p-2.5 bg-champagne/10 rounded-xl border border-champagne/30 text-champagne">
+                <i data-lucide="map-pin" class="w-6 h-6"></i>
+            </div>
+            <div class="flex-1">
+                <div class="flex items-center justify-between">
+                    <span class="apple-font text-xs text-champagne font-semibold tracking-wider" id="geoBannerTitle">ARRIVED AT VENUE</span>
+                    <span class="text-[10px] text-beige-dark/50">JUST NOW</span>
+                </div>
+                <p id="geoBannerDesc" class="text-xs text-beige mt-0.5">ยินดีต้อนรับสู่ IMPACT Arena! แตะเพื่อเปิด Dynamic Pass สแกนเข้างาน</p>
+                <div class="mt-2.5 flex space-x-2">
+                    <button onclick="openQuickGatePass()" class="bg-champagne hover:bg-champagne-light text-charcoal-950 px-3.5 py-1 rounded-lg text-xs font-semibold flex items-center space-x-1 shadow-gold-glow">
+                        <i data-lucide="qr-code" class="w-3.5 h-3.5"></i>
+                        <span id="geoScanPassBtn">OPEN PASS</span>
+                    </button>
+                    <button onclick="closeGeofenceBanner()" class="bg-charcoal-800 text-beige-dark/70 hover:text-beige px-3 py-1 rounded-lg text-xs">DISMISS</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Dynamic Content Container -->
+    <main class="max-w-7xl mx-auto px-4 lg:px-8 pt-6 flex-1 w-full">
+
+        <!-- TAB 1: WALLET / TICKET COLLECTION -->
+        <section id="tab-wallet" class="tab-content block space-y-6">
+            <!-- Header Bar -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-champagne/10 pb-4">
+                <div>
+                    <h1 class="apple-font text-2xl lg:text-3xl gold-gradient-text font-bold tracking-wider" id="txtWalletTitle">CONCERT COLLECTION & VAULT</h1>
+                    <p class="text-xs lg:text-sm text-beige-dark/70 mt-1" id="txtWalletSubtitle">บันทึกทุกความประทับใจ การแสดงสด ภาพถ่าย วิดีโอ และเซ็ตลิสต์ในรูปแบบพรีเมียม</p>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <button onclick="switchTab('importer')" class="bg-charcoal-800/90 border border-champagne/30 hover:border-champagne text-champagne-light px-4 py-2 rounded-xl text-xs flex items-center space-x-2 transition">
+                        <i data-lucide="import" class="w-4 h-4"></i>
+                        <span id="btnImportPass" class="apple-font font-medium">IMPORT E-TICKET</span>
+                    </button>
+                    <button onclick="openAddTicketModal()" class="bg-gradient-to-r from-champagne via-champagne-light to-champagne-deep text-charcoal-950 font-semibold px-4 py-2 rounded-xl text-xs flex items-center space-x-2 shadow-gold-glow hover:opacity-95 transition">
+                        <i data-lucide="plus" class="w-4 h-4"></i>
+                        <span id="btnAddTicket" class="apple-font font-bold">ADD MEMORY</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Filter & Search Bar -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <div class="relative md:col-span-2">
+                    <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-3 text-beige-dark/40"></i>
+                    <input type="text" id="searchInput" onkeyup="filterTickets()" placeholder="Search by Artist, Tour name, or Venue..." class="w-full pl-10 pr-4 py-2.5 bg-charcoal-800/60 border border-champagne/15 rounded-xl text-xs text-beige placeholder-beige-dark/40 focus:outline-none focus:border-champagne/60 transition">
+                </div>
+                <select id="sortSelect" onchange="filterTickets()" class="bg-charcoal-800/60 border border-champagne/15 rounded-xl px-3 py-2.5 text-xs text-beige focus:outline-none focus:border-champagne/60 transition font-medium">
+                    <option value="newest" id="optNewest">SORT: LATEST FIRST</option>
+                    <option value="oldest" id="optOldest">SORT: OLDEST FIRST</option>
+                    <option value="price" id="optPrice">SORT: HIGHEST PRICE</option>
+                </select>
+            </div>
+
+            <!-- Concert Tickets Grid Container -->
+            <div id="ticketsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Dynamically Rendered via JS -->
+            </div>
+        </section>
+
+        <!-- TAB 2: VENUES & NAVIGATION GUIDE (9 VENUES) -->
+        <section id="tab-venues" class="tab-content hidden space-y-6">
+            <div class="border-b border-champagne/10 pb-4">
+                <h1 class="apple-font text-2xl lg:text-3xl gold-gradient-text font-bold" id="txtVenuesTitle">CONCERT VENUES & TRANSIT GUIDE</h1>
+                <p class="text-xs lg:text-sm text-beige-dark/70 mt-1" id="txtVenuesSubtitle">ข้อมูลเส้นทาง รถไฟฟ้า จุดจอดรถ และคำแนะนำการเดินทาง 9 ฮอลล์ใหญ่ในไทย</p>
+            </div>
+
+            <!-- Venue Selection Pills -->
+            <div class="flex items-center space-x-2 overflow-x-auto pb-2 scrollbar-none" id="venuePillsContainer">
+                <!-- Rendered dynamically -->
+            </div>
+
+            <!-- Venue Details Display Card -->
+            <div id="venueDetailCard" class="glass-panel rounded-3xl p-6 lg:p-8 border border-champagne/20">
+                <!-- Rendered dynamically via JS -->
+            </div>
+        </section>
+
+        <!-- TAB 3: TRANSIT MATRIX (BTS, MRT, SRT) -->
+        <section id="tab-transit" class="tab-content hidden space-y-6">
+            <div class="border-b border-champagne/10 pb-4">
+                <h1 class="apple-font text-2xl lg:text-3xl gold-gradient-text font-bold" id="txtTransitTitle">MASS TRANSIT MAP MATRIX</h1>
+                <p class="text-xs lg:text-sm text-beige-dark/70 mt-1" id="txtTransitSubtitle">แผนผังเชื่อมต่อ BTS, MRT สายสีน้ำเงิน/สีชมพู และรถไฟฟ้าสายสีแดง</p>
+            </div>
+
+            <!-- Interactive Schematic Transit Viewer -->
+            <div class="glass-panel rounded-3xl p-6 border border-champagne/20 overflow-hidden">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center space-x-2">
+                        <i data-lucide="train" class="w-5 h-5 text-champagne"></i>
+                        <span class="apple-font text-xs font-semibold text-beige" id="txtTransitHeader">BANGKOK RAIL TRANSIT & VENUE MATRIX</span>
+                    </div>
+                    <span class="apple-font text-[10px] bg-champagne/10 border border-champagne/30 text-champagne px-2.5 py-1 rounded-full">INTERACTIVE TRANSIT MAP</span>
+                </div>
+
+                <!-- Custom SVG Transit Overlay Diagram -->
+                <div class="relative bg-charcoal-950/80 rounded-2xl p-4 border border-champagne/10 overflow-x-auto min-w-[600px] flex justify-center">
+                    <svg viewBox="0 0 800 450" class="w-full max-w-3xl">
+                        <!-- Background Grid Lines -->
+                        <defs>
+                            <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(212, 175, 55, 0.05)" stroke-width="1"/>
+                            </pattern>
+                        </defs>
+                        <rect width="100%" height="100%" fill="url(#grid)" />
+
+                        <!-- Transit Lines -->
+                        <path d="M 100 80 L 700 80" stroke="#22c55e" stroke-width="8" stroke-linecap="round"/>
+                        <text x="710" y="85" fill="#22c55e" font-size="12" font-weight="bold">BTS Sukhumvit</text>
+
+                        <path d="M 200 80 Q 200 350 450 350 Q 700 350 700 200 L 700 80" fill="none" stroke="#3b82f6" stroke-width="8" stroke-linecap="round"/>
+                        <text x="710" y="205" fill="#3b82f6" font-size="12" font-weight="bold">MRT Blue Line</text>
+
+                        <path d="M 150 160 L 650 160" stroke="#ec4899" stroke-width="6" stroke-linecap="round" stroke-dasharray="6 4"/>
+                        <text x="660" y="165" fill="#ec4899" font-size="12" font-weight="bold">MRT Pink Line</text>
+
+                        <path d="M 300 40 L 300 400" stroke="#ef4444" stroke-width="6" stroke-linecap="round"/>
+                        <text x="250" y="420" fill="#ef4444" font-size="12" font-weight="bold">SRT Red Line</text>
+
+                        <!-- Venue Interchange Nodes -->
+                        <circle cx="500" cy="80" r="10" fill="#D4AF37" stroke="#070606" stroke-width="3"/>
+                        <text x="500" y="60" text-anchor="middle" fill="#F2E8DC" font-size="11" font-weight="bold">UOB LIVE (Phrom Phong)</text>
+
+                        <circle cx="350" cy="80" r="10" fill="#D4AF37" stroke="#070606" stroke-width="3"/>
+                        <text x="350" y="60" text-anchor="middle" fill="#F2E8DC" font-size="11" font-weight="bold">Paragon Hall (Siam)</text>
+
+                        <circle cx="400" cy="160" r="10" fill="#D4AF37" stroke="#070606" stroke-width="3"/>
+                        <text x="400" y="145" text-anchor="middle" fill="#F2E8DC" font-size="11" font-weight="bold">Impact Arena / Thunder Dome</text>
+
+                        <circle cx="650" cy="80" r="10" fill="#D4AF37" stroke="#070606" stroke-width="3"/>
+                        <text x="650" y="105" text-anchor="middle" fill="#F2E8DC" font-size="11" font-weight="bold">BITEC LIVE (Bang Na)</text>
+
+                        <circle cx="300" cy="160" r="10" fill="#D4AF37" stroke="#070606" stroke-width="3"/>
+                        <text x="300" y="185" text-anchor="middle" fill="#F2E8DC" font-size="11" font-weight="bold">Union Hall (Ha YeK Lat Phrao)</text>
+                    </svg>
+                </div>
+
+                <div class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="transitGuidesGrid">
+                    <!-- Dynamic transit route descriptions -->
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 4: IMPORTER & NFC GATE DIGITAL PASS -->
+        <section id="tab-importer" class="tab-content hidden space-y-6">
+            <div class="border-b border-champagne/10 pb-4">
+                <h1 class="apple-font text-2xl lg:text-3xl gold-gradient-text font-bold" id="txtImporterTitle">ALL-IN-ONE TICKET IMPORTER</h1>
+                <p class="text-xs lg:text-sm text-beige-dark/70 mt-1" id="txtImporterSubtitle">อ่านไฟล์ PDF หรือสแกนบัตรแข็งด้วยกล้องถ่ายรูปเพื่อเก็บลงวอเล็ต</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- PDF Drag and Drop Parser -->
+                <div class="glass-panel rounded-3xl p-6 border border-champagne/20 space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="p-2.5 bg-champagne/10 border border-champagne/30 rounded-xl text-champagne">
+                            <i data-lucide="file-text" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h3 class="apple-font text-sm font-semibold text-beige" id="txtPdfHeader">FILE PDF / E-TICKET PARSER</h3>
+                            <p class="text-xs text-beige-dark/60" id="txtPdfSub">Extract barcode & event info</p>
+                        </div>
+                    </div>
+                    <div class="border-2 border-dashed border-champagne/30 rounded-2xl p-8 text-center hover:border-champagne transition cursor-pointer bg-charcoal-900/40" onclick="triggerFileInput()">
+                        <i data-lucide="upload-cloud" class="w-10 h-10 text-champagne/70 mx-auto mb-2"></i>
+                        <p class="text-xs text-beige font-medium" id="txtPdfDrop">Drop PDF / Mobile E-Ticket file here</p>
+                        <p class="apple-font text-[10px] text-beige-dark/50 mt-1">SUPPORTS PDF, PNG, PKPASS</p>
+                        <input type="file" id="pdfFileInput" class="hidden" accept=".pdf,image/*" onchange="handleFileImport(event)">
+                    </div>
+                </div>
+
+                <!-- Physical Card Camera Scanner -->
+                <div class="glass-panel rounded-3xl p-6 border border-champagne/20 space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="p-2.5 bg-champagne/10 border border-champagne/30 rounded-xl text-champagne">
+                            <i data-lucide="camera" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h3 class="apple-font text-sm font-semibold text-beige" id="txtScanHeader">PHYSICAL CARD SCANNER</h3>
+                            <p class="text-xs text-beige-dark/60" id="txtScanSub">Scan hard card barcode</p>
+                        </div>
+                    </div>
+                    <div class="bg-charcoal-950/80 rounded-2xl p-4 border border-champagne/20 text-center space-y-3">
+                        <div class="w-full h-28 rounded-xl bg-charcoal-800/90 border border-champagne/20 flex items-center justify-center relative overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-b from-champagne/10 to-transparent animate-pulse"></div>
+                            <i data-lucide="scan" class="w-12 h-12 text-champagne stroke-1"></i>
+                        </div>
+                        <button onclick="startCameraScanner()" class="apple-font w-full bg-champagne hover:bg-champagne-light text-charcoal-950 text-xs font-bold py-2.5 rounded-xl transition shadow-gold-glow">
+                            OPEN CAMERA VIEWPORT
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 5: WRAPPED CONCERT ANALYTICS -->
+        <section id="tab-wrapped" class="tab-content hidden space-y-6">
+            <div class="border-b border-champagne/10 pb-4">
+                <h1 class="apple-font text-2xl lg:text-3xl gold-gradient-text font-bold" id="txtWrappedTitle">LIVE CONCERT WRAPPED & STATS</h1>
+                <p class="text-xs lg:text-sm text-beige-dark/70 mt-1" id="txtWrappedSubtitle">สรุปยอดค่าใช้จ่าย ศิลปินโปรด และสถานที่คอนเสิร์ตที่คุณไปบ่อยที่สุด</p>
+            </div>
+
+            <!-- Stats Overview Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="glass-card rounded-2xl p-5 text-center">
+                    <span class="apple-font text-[10px] text-beige-dark/60 tracking-wider block" id="txtStatTotalConcerts">TOTAL SHOWS</span>
+                    <span id="statTotalCount" class="apple-font text-3xl font-bold text-champagne mt-1 block">0</span>
+                </div>
+                <div class="glass-card rounded-2xl p-5 text-center">
+                    <span class="apple-font text-[10px] text-beige-dark/60 tracking-wider block" id="txtStatSpent">TOTAL SPENT</span>
+                    <span id="statTotalSpent" class="apple-font text-3xl font-bold text-beige mt-1 block">฿0</span>
+                </div>
+                <div class="glass-card rounded-2xl p-5 text-center">
+                    <span class="apple-font text-[10px] text-beige-dark/60 tracking-wider block" id="txtStatTopVenue">TOP VENUE</span>
+                    <span id="statTopVenue" class="apple-font text-sm font-bold text-champagne-light mt-2 block truncate">-</span>
+                </div>
+                <div class="glass-card rounded-2xl p-5 text-center">
+                    <span class="apple-font text-[10px] text-beige-dark/60 tracking-wider block" id="txtStatHours">LIVE MUSIC HOURS</span>
+                    <span id="statTotalHours" class="apple-font text-3xl font-bold text-beige mt-1 block">0 HRS</span>
+                </div>
+            </div>
+
+            <!-- Detailed Wrapped Insights -->
+            <div class="glass-panel rounded-3xl p-6 border border-champagne/20">
+                <h3 class="apple-font text-lg text-beige font-bold mb-4" id="txtArtistLeaderboard">TOP ARTISTS EXPERIENCED</h3>
+                <div id="artistLeaderboard" class="space-y-3">
+                    <!-- Dynamic rendering -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Bottom Floating Luxury Glass Dock Bar -->
+    <nav class="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 glass-panel rounded-full px-4 py-2.5 border border-champagne/30 shadow-2xl flex items-center space-x-1 md:space-x-4 max-w-lg w-[92%] justify-around">
+        <button onclick="switchTab('wallet')" id="nav-wallet" class="dock-btn active flex flex-col items-center px-3 py-1 rounded-full text-champagne transition">
+            <i data-lucide="ticket" class="w-5 h-5"></i>
+            <span class="apple-font text-[10px] mt-0.5 font-semibold" id="lblNavWallet">VAULT</span>
+        </button>
+        <button onclick="switchTab('venues')" id="nav-venues" class="dock-btn flex flex-col items-center px-3 py-1 rounded-full text-beige-dark/60 hover:text-beige transition">
+            <i data-lucide="map-pin" class="w-5 h-5"></i>
+            <span class="apple-font text-[10px] mt-0.5 font-semibold" id="lblNavVenues">VENUES</span>
+        </button>
+        <button onclick="switchTab('transit')" id="nav-transit" class="dock-btn flex flex-col items-center px-3 py-1 rounded-full text-beige-dark/60 hover:text-beige transition">
+            <i data-lucide="train" class="w-5 h-5"></i>
+            <span class="apple-font text-[10px] mt-0.5 font-semibold" id="lblNavTransit">TRANSIT</span>
+        </button>
+        <button onclick="switchTab('importer')" id="nav-importer" class="dock-btn flex flex-col items-center px-3 py-1 rounded-full text-beige-dark/60 hover:text-beige transition">
+            <i data-lucide="qr-code" class="w-5 h-5"></i>
+            <span class="apple-font text-[10px] mt-0.5 font-semibold" id="lblNavImport">IMPORT</span>
+        </button>
+        <button onclick="switchTab('wrapped')" id="nav-wrapped" class="dock-btn flex flex-col items-center px-3 py-1 rounded-full text-beige-dark/60 hover:text-beige transition">
+            <i data-lucide="sparkles" class="w-5 h-5"></i>
+            <span class="apple-font text-[10px] mt-0.5 font-semibold" id="lblNavWrapped">WRAPPED</span>
+        </button>
+    </nav>
+
+    <!-- MODAL 1: ADD / EDIT TICKET (WITH 10-MEDIA GALLERY UPLOADER) -->
+    <div id="ticketModal" class="hidden fixed inset-0 z-50 bg-charcoal-950/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+        <div class="glass-panel rounded-3xl border border-champagne/30 w-full max-w-2xl my-8 overflow-hidden shadow-2xl">
+            <div class="px-6 py-4 border-b border-champagne/15 flex items-center justify-between bg-charcoal-900/60">
+                <h3 class="apple-font text-lg text-beige font-bold" id="modalTicketTitle">ADD CONCERT MEMORY</h3>
+                <button onclick="closeTicketModal()" class="text-beige-dark/60 hover:text-beige p-1">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <form id="ticketForm" onsubmit="saveTicket(event)" class="p-6 space-y-4 max-h-[75vh] overflow-y-auto">
+                <input type="hidden" id="ticketId">
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-medium text-beige-dark/80 mb-1" id="lblArtist">Artist Name *</label>
+                        <input type="text" id="inputArtist" required placeholder="e.g. Coldplay, Taylor Swift" class="w-full bg-charcoal-800/80 border border-champagne/20 rounded-xl px-3.5 py-2 text-xs text-beige focus:outline-none focus:border-champagne">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-beige-dark/80 mb-1" id="lblTour">Tour / Event Title *</label>
+                        <input type="text" id="inputTour" required placeholder="e.g. Music of the Spheres" class="w-full bg-charcoal-800/80 border border-champagne/20 rounded-xl px-3.5 py-2 text-xs text-beige focus:outline-none focus:border-champagne">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-xs font-medium text-beige-dark/80 mb-1" id="lblVenue">Venue *</label>
+                        <select id="inputVenue" required class="w-full bg-charcoal-800/80 border border-champagne/20 rounded-xl px-3 py-2 text-xs text-beige focus:outline-none focus:border-champagne">
+                            <option value="RAJAMANGALA NATIONAL STADIUM">Rajamangala Stadium</option>
+                            <option value="IMPACT ARENA">IMPACT Arena</option>
+                            <option value="THUNDER DOME">Thunder Dome</option>
+                            <option value="UOB LIVE EMSPHERE">UOB LIVE Emsphere</option>
+                            <option value="BITEC LIVE">BITEC LIVE</option>
+                            <option value="UNION HALL">Union Hall</option>
+                            <option value="CENTRALWORLD LIVE">centralwOrld LIVE</option>
+                            <option value="PARAGON HALL">Paragon Hall</option>
+                            <option value="MGI HALL">MGI Hall</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-beige-dark/80 mb-1" id="lblDate">Concert Date *</label>
+                        <input type="date" id="inputDate" required class="w-full bg-charcoal-800/80 border border-champagne/20 rounded-xl px-3.5 py-2 text-xs text-beige focus:outline-none focus:border-champagne">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-beige-dark/80 mb-1" id="lblPrice">Price (THB)</label>
+                        <input type="number" id="inputPrice" placeholder="5500" class="w-full bg-charcoal-800/80 border border-champagne/20 rounded-xl px-3.5 py-2 text-xs text-beige focus:outline-none focus:border-champagne">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-medium text-beige-dark/80 mb-1" id="lblZone">Zone / Standing</label>
+                        <input type="text" id="inputZone" placeholder="e.g. A2, Standing VIP" class="w-full bg-charcoal-800/80 border border-champagne/20 rounded-xl px-3.5 py-2 text-xs text-beige focus:outline-none focus:border-champagne">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-beige-dark/80 mb-1" id="lblSeat">Seat Number</label>
+                        <input type="text" id="inputSeat" placeholder="e.g. 14, GA-098" class="w-full bg-charcoal-800/80 border border-champagne/20 rounded-xl px-3.5 py-2 text-xs text-beige focus:outline-none focus:border-champagne">
+                    </div>
+                </div>
+
+                <!-- 10-MEDIA GALLERY UPLOADER -->
+                <div class="border-t border-champagne/15 pt-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <label class="block text-xs font-semibold text-champagne-light" id="lblMediaGallery">Concert Photos & Videos Gallery (Max 10)</label>
+                        <span id="mediaCounterBadge" class="apple-font text-[10px] bg-champagne/10 border border-champagne/30 text-champagne px-2 py-0.5 rounded-full font-bold">0 / 10 MEDIA ITEMS</span>
+                    </div>
+                    
+                    <div class="grid grid-cols-4 gap-2 mb-3" id="modalMediaThumbnails">
+                        <!-- Preview Thumbnails -->
+                    </div>
+
+                    <div id="mediaUploadBox" class="border border-dashed border-champagne/30 rounded-xl p-3 text-center bg-charcoal-900/40 cursor-pointer hover:border-champagne transition" onclick="triggerMediaPicker()">
+                        <i data-lucide="image-plus" class="w-6 h-6 text-champagne/70 mx-auto mb-1"></i>
+                        <p class="text-xs text-beige" id="txtMediaUploadPrompt">Click to attach photos or video clips</p>
+                        <p class="apple-font text-[10px] text-beige-dark/50" id="txtMediaUploadLimits">MAX 10 FILES (JPEG, PNG, MP4, MOV)</p>
+                        <input type="file" id="mediaFileInput" multiple accept="image/*,video/*" class="hidden" onchange="handleMediaSelect(event)">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-medium text-beige-dark/80 mb-1" id="lblNotes">Setlist & Personal Memory Note</label>
+                    <textarea id="inputNotes" rows="3" placeholder="Favorite songs played, setlist order, who you went with..." class="w-full bg-charcoal-800/80 border border-champagne/20 rounded-xl p-3 text-xs text-beige focus:outline-none focus:border-champagne"></textarea>
+                </div>
+
+                <div class="pt-2 flex justify-end space-x-3">
+                    <button type="button" onclick="closeTicketModal()" class="apple-font px-4 py-2 rounded-xl text-xs text-beige-dark/70 hover:text-beige" id="btnCancel">CANCEL</button>
+                    <button type="submit" class="apple-font bg-gradient-to-r from-champagne via-champagne-light to-champagne-deep text-charcoal-950 font-bold px-6 py-2 rounded-xl text-xs shadow-gold-glow hover:opacity-95 transition" id="btnSave">SAVE TO VAULT</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 2: TICKET DETAIL & DYNAMIC REFRESHING GATE PASS -->
+    <div id="passDetailModal" class="hidden fixed inset-0 z-50 bg-charcoal-950/90 backdrop-blur-lg flex items-center justify-center p-4 overflow-y-auto">
+        <div class="w-full max-w-lg glass-panel rounded-3xl border border-champagne/40 overflow-hidden shadow-2xl relative">
+            <button onclick="closePassModal()" class="absolute top-4 right-4 z-20 text-beige-dark hover:text-beige p-2 bg-charcoal-900/80 rounded-full border border-champagne/20">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <div id="passModalContent" class="p-6 space-y-6">
+                <!-- Dynamically Populated -->
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC & LOCALSTORAGE PERSISTENCE -->
+    <script>
+        /* TRILINGUAL LANGUAGE TRANSLATIONS */
+        const i18n = {
+            th: {
+                walletTitle: "CONCERT COLLECTION & VAULT",
+                walletSub: "บันทึกทุกความประทับใจ การแสดงสด ภาพถ่าย วิดีโอ และเซ็ตลิสต์ในรูปแบบพรีเมียม",
+                importBtn: "IMPORT PASS",
+                addTicketBtn: "ADD MEMORY",
+                venuesTitle: "CONCERT VENUES & TRANSIT GUIDE",
+                venuesSub: "ข้อมูลเส้นทาง รถไฟฟ้า จุดจอดรถ และคำแนะนำการเดินทาง 9 ฮอลล์ใหญ่ในไทย",
+                transitTitle: "MASS TRANSIT MAP MATRIX",
+                transitSub: "แผนผังเชื่อมต่อ BTS, MRT สายสีน้ำเงิน/สีชมพู และรถไฟฟ้าสายสีแดง",
+                importerTitle: "ALL-IN-ONE TICKET IMPORTER",
+                importerSub: "อ่านไฟล์ PDF หรือสแกนบัตรแข็งด้วยกล้องถ่ายรูปเพื่อเก็บลงวอเล็ต",
+                wrappedTitle: "LIVE CONCERT WRAPPED & STATS",
+                wrappedSub: "สรุปยอดค่าใช้จ่าย ศิลปินโปรด และสถานที่คอนเสิร์ตที่คุณไปบ่อยที่สุด",
+                navWallet: "VAULT",
+                navVenues: "VENUES",
+                navTransit: "TRANSIT",
+                navImport: "IMPORT",
+                navWrapped: "WRAPPED",
+                totalConcerts: "TOTAL SHOWS",
+                totalSpent: "TOTAL SPENT",
+                topVenue: "TOP VENUE",
+                liveHours: "LIVE MUSIC HOURS",
+                mediaGallery: "MEDIA GALLERY (MAX 10 ITEMS)",
+                uploadPrompt: "คลิกเพื่อเลือกรูปภาพหรือวิดีโอบันทึกบรรยากาศ",
+                uploadLimits: "MAX 10 FILES (JPEG, PNG, MP4, MOV)",
+                offlineActive: "100% VAULT OFFLINE",
+                scanPass: "SCAN PASS",
+                geoTitle: "ARRIVED AT VENUE",
+                geoDesc: "ยินดีต้อนรับสู่ฮอลล์คอนเสิร์ต แตะเพื่อเปิด Dynamic Pass สแกนเข้าประตู"
+            },
+            en: {
+                walletTitle: "CONCERT COLLECTION & VAULT",
+                walletSub: "Preserving your live music experiences with ultra-high fidelity media & memory logs.",
+                importBtn: "IMPORT PASS",
+                addTicketBtn: "ADD MEMORY",
+                venuesTitle: "CONCERT VENUES & TRANSIT GUIDE",
+                venuesSub: "Seamless transportation routes, parking strategies, and entrance guides across Thailand.",
+                transitTitle: "MASS TRANSIT MAP MATRIX",
+                transitSub: "BTS Skytrain, MRT Blue/Pink Line, and SRT Red Line venue connection map.",
+                importerTitle: "ALL-IN-ONE TICKET IMPORTER",
+                importerSub: "Parse PDF E-tickets or scan physical RFID hard cards with camera.",
+                wrappedTitle: "LIVE CONCERT WRAPPED & STATS",
+                wrappedSub: "Your live concert stats, spending insights, top artists, and venue metrics.",
+                navWallet: "VAULT",
+                navVenues: "VENUES",
+                navTransit: "TRANSIT",
+                navImport: "IMPORT",
+                navWrapped: "WRAPPED",
+                totalConcerts: "TOTAL SHOWS",
+                totalSpent: "TOTAL SPENT",
+                topVenue: "TOP VENUE",
+                liveHours: "LIVE MUSIC HOURS",
+                mediaGallery: "MEDIA GALLERY (MAX 10 ITEMS)",
+                uploadPrompt: "Click to upload concert photos or video highlights",
+                uploadLimits: "MAX 10 ITEMS ALLOWED (JPEG, PNG, MP4, MOV)",
+                offlineActive: "100% VAULT OFFLINE",
+                scanPass: "SCAN PASS",
+                geoTitle: "ARRIVED AT CONCERT VENUE",
+                geoDesc: "Welcome! Tap below to launch your Dynamic QR Gate Pass instantly."
+            },
+            cn: {
+                walletTitle: "CONCERT COLLECTION & VAULT",
+                walletSub: "以高保真音视频及歌单记录，珍藏您的 numerically 现场音乐体验。",
+                importBtn: "IMPORT PASS",
+                addTicketBtn: "ADD MEMORY",
+                venuesTitle: "CONCERT VENUES & TRANSIT GUIDE",
+                venuesSub: "泰国9大核心演唱会场馆的轻轨、地铁、停车及交通全攻略。",
+                transitTitle: "MASS TRANSIT MAP MATRIX",
+                transitSub: "BTS轻轨、MRT蓝线/粉线及SRT红线直达场馆地图。",
+                importerTitle: "ALL-IN-ONE TICKET IMPORTER",
+                importerSub: "解析PDF电子票或摄像头扫描实体卡。",
+                wrappedTitle: "LIVE CONCERT WRAPPED & STATS",
+                wrappedSub: "统计总消费、最喜爱的艺人及出勤率最高的音乐场馆。",
+                navWallet: "VAULT",
+                navVenues: "VENUES",
+                navTransit: "TRANSIT",
+                navImport: "IMPORT",
+                navWrapped: "WRAPPED",
+                totalConcerts: "TOTAL SHOWS",
+                totalSpent: "TOTAL SPENT",
+                topVenue: "TOP VENUE",
+                liveHours: "LIVE MUSIC HOURS",
+                mediaGallery: "MEDIA GALLERY (MAX 10 ITEMS)",
+                uploadPrompt: "点击上传现场照片或视频片段",
+                uploadLimits: "MAX 10 ITEMS ALLOWED (JPEG, PNG, MP4, MOV)",
+                offlineActive: "100% VAULT OFFLINE",
+                scanPass: "SCAN PASS",
+                geoTitle: "ARRIVED AT VENUE",
+                geoDesc: "欢迎到达现场！点击下方立即打开动态二维码入场券。"
+            }
+        };
+
+        let currentLang = 'th';
+
+        // Sample Data Initialized in LocalStorage if Empty
+        const sampleTickets = [
+            {
+                id: "t1",
+                artist: "COLDPLAY",
+                tour: "Music of the Spheres World Tour",
+                venue: "RAJAMANGALA NATIONAL STADIUM",
+                date: "2024-02-03",
+                price: 5800,
+                zone: "STADIUM A2",
+                seat: "E-104",
+                notes: "Yellow, Fix You, A Sky Full of Stars! Fireworks were breathtaking.",
+                media: [
+                    "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=800&q=80"
+                ]
+            },
+            {
+                id: "t2",
+                artist: "TAYLOR SWIFT",
+                tour: "The Eras Tour",
+                venue: "IMPACT ARENA",
+                date: "2024-11-15",
+                price: 7500,
+                zone: "VIP Floor 1",
+                seat: "V-12",
+                notes: "3.5 hours non-stop! Cruel Summer chant was euphoric.",
+                media: [
+                    "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=800&q=80"
+                ]
+            }
+        ];
+
+        // 9 Concert Venues Comprehensive Database
+        const venuesData = {
+            "RAJAMANGALA NATIONAL STADIUM": {
+                name: "Rajamangala National Stadium (ราชมังคลากีฬาสถาน)",
+                capacity: "50,000+ Seats",
+                bts: "ARL Ramkhamhaeng / MRT Orange Line (Raamkhamhaeng)",
+                boat: "Saen Saep Express Boat -> Saaphan Mit Mahat Thai Pier",
+                van: "Ramkhamhaeng Vans from Victory Monument",
+                parking: "The Mall Bangkapi, Big C Hua Mak, Sports Authority Grounds",
+                hacks: "Take the Saen Saep Canal boat from CentralWorld/Siam to bypass Ramkhamhaeng road jams completely."
+            },
+            "IMPACT ARENA": {
+                name: "IMPACT Arena Muang Thong Thani",
+                capacity: "12,000 Seats",
+                bts: "MRT Pink Line -> Muang Thong Thani Station (PK10) + Shuttle",
+                boat: "N/A",
+                van: "Vans from Mochit BTS (Gate 3) / Victory Monument",
+                parking: "P1 & P2 Indoor Buildings, Cosmo Bazaar Parking",
+                hacks: "Arrive at least 2.5 hours prior. Park at Cosmo Bazaar for easier egress post-concert."
+            },
+            "THUNDER DOME": {
+                name: "Thunder Dome Muang Thong Thani",
+                capacity: "5,000 Seats",
+                bts: "MRT Pink Line -> Impact Challenger Connection",
+                boat: "N/A",
+                van: "Direct vans from Chatuchak / Mochit BTS",
+                parking: "Thunder Dome outdoor grounds & Beehive Mall",
+                hacks: "Combine parking with Beehive Lifestyle Mall across the street for quick access."
+            },
+            "UOB LIVE EMSPHERE": {
+                name: "UOB LIVE (6th Floor, Emsphere Mall)",
+                capacity: "6,000 Seats",
+                bts: "BTS Phrom Phong (Direct Covered Skywalk Exit 6)",
+                boat: "Saen Saep Boat -> Italthai Pier",
+                van: "Sukhumvit Line Buses & Taxis",
+                parking: "Emsphere Mall Parking (6 Floors Underground)",
+                hacks: "Use the Direct Skywalk connection from Phrom Phong BTS station without walking on street level."
+            },
+            "BITEC LIVE": {
+                name: "BITEC LIVE (Hall 100-104)",
+                capacity: "10,000+ Seats",
+                bts: "BTS Bang Na (Direct Skywalk Exit 1)",
+                boat: "N/A",
+                van: "Buses along Sukhumvit & Bangna-Trad Highway",
+                parking: "BITEC Basement Parking B1-B3 (2,500 Cars)",
+                hacks: "Park near Exit 3 of the basement garage to head directly onto Bangna-Trad expressway."
+            },
+            "UNION HALL": {
+                name: "Union Hall (Union Mall 6th Floor)",
+                capacity: "4,000 Seats",
+                bts: "MRT Phahon Yothin (Exit 5) / BTS Ha Yeak Lat Phrao",
+                boat: "N/A",
+                van: "Lat Phrao & Chatuchak Hub",
+                parking: "Union Mall Multi-story Car Park",
+                hacks: "Use MRT Phahon Yothin exit 5 directly into the mall's basement."
+            },
+            "CENTRALWORLD LIVE": {
+                name: "centralwOrld LIVE (8th Floor)",
+                capacity: "3,000 Seats",
+                bts: "BTS Chidlom / BTS Siam (Connected Skywalk)",
+                boat: "Saen Saep Boat -> Pratunam Pier",
+                van: "Ratchadamri Buses",
+                parking: "CentralWorld Parking Towers (3,000+ Cars)",
+                hacks: "Park on Zone B (8th Floor Level) to walk straight into the hall entrance."
+            },
+            "PARAGON HALL": {
+                name: "Royal Paragon Hall (5th Floor Siam Paragon)",
+                capacity: "5,000 Seats",
+                bts: "BTS Siam (Direct Interchange Station Exit 3, 5)",
+                boat: "Saen Saep Boat -> Hua Chang Pier",
+                van: "Siam Square Hub",
+                parking: "Siam Paragon / Siam Carpark",
+                hacks: "Take express elevators located at South Zone glass lifts directly up to 5th floor."
+            },
+            "MGI HALL": {
+                name: "MGI Hall (SHOW DC / Bravo BKK)",
+                capacity: "4,000 Seats",
+                bts: "MRT Phetchaburi / ARL Makkasan + Shuttle Taxi",
+                boat: "Saen Saep Boat -> Wat Tat Thong / Asoke Pier",
+                van: "Rama 9 Expressway Hub",
+                parking: "Bravo BKK Indoor Parking",
+                hacks: "Take a 5-minute motorbike taxi from MRT Phetchaburi Exit 1 during peak traffic hours."
+            }
+        };
+
+        // State variables
+        let tickets = JSON.parse(localStorage.getItem('aura_tickets')) || sampleTickets;
+        let selectedMediaFiles = [];
+        let offlineMode = false;
+        let activeVenueKey = "RAJAMANGALA NATIONAL STADIUM";
+        let dynamicQrTimer = null;
+
+        // Initialize App
+        window.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            saveTicketsToStorage();
+            renderTickets();
+            renderVenuesPills();
+            renderVenueDetails(activeVenueKey);
+            renderTransitGuides();
+            updateWrappedStats();
+
+            // Simulate Geo-fencing trigger after 5 seconds
+            setTimeout(() => {
+                showGeofenceBanner();
+            }, 5000);
+        });
+
+        // Language Switcher Function
+        function changeLanguage(lang) {
+            currentLang = lang;
+            const t = i18n[lang];
+
+            document.getElementById('txtWalletTitle').textContent = t.walletTitle;
+            document.getElementById('txtWalletSubtitle').textContent = t.walletSub;
+            document.getElementById('btnImportPass').querySelector('span').textContent = t.importBtn;
+            document.getElementById('btnAddTicket').querySelector('span').textContent = t.addTicketBtn;
+            document.getElementById('txtVenuesTitle').textContent = t.venuesTitle;
+            document.getElementById('txtVenuesSubtitle').textContent = t.venuesSub;
+            document.getElementById('txtTransitTitle').textContent = t.transitTitle;
+            document.getElementById('txtTransitSubtitle').textContent = t.transitSub;
+            document.getElementById('txtImporterTitle').textContent = t.importerTitle;
+            document.getElementById('txtImporterSubtitle').textContent = t.importerSub;
+            document.getElementById('txtWrappedTitle').textContent = t.wrappedTitle;
+            document.getElementById('txtWrappedSubtitle').textContent = t.wrappedSub;
+
+            document.getElementById('lblNavWallet').textContent = t.navWallet;
+            document.getElementById('lblNavVenues').textContent = t.navVenues;
+            document.getElementById('lblNavTransit').textContent = t.navTransit;
+            document.getElementById('lblNavImport').textContent = t.navImport;
+            document.getElementById('lblNavWrapped').textContent = t.navWrapped;
+
+            document.getElementById('txtStatTotalConcerts').textContent = t.totalConcerts;
+            document.getElementById('txtStatSpent').textContent = t.totalSpent;
+            document.getElementById('txtStatTopVenue').textContent = t.topVenue;
+            document.getElementById('txtStatHours').textContent = t.liveHours;
+
+            document.getElementById('lblMediaGallery').textContent = t.mediaGallery;
+            document.getElementById('txtMediaUploadPrompt').textContent = t.uploadPrompt;
+            document.getElementById('txtMediaUploadLimits').textContent = t.uploadLimits;
+
+            document.getElementById('geoBannerTitle').textContent = t.geoTitle;
+            document.getElementById('geoBannerDesc').textContent = t.geoDesc;
+            document.getElementById('geoScanPassBtn').textContent = t.scanPass;
+
+            renderTickets();
+        }
+
+        // Tab Switcher Function
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`tab-${tabName}`).classList.remove('hidden');
+
+            document.querySelectorAll('.dock-btn').forEach(btn => {
+                btn.classList.remove('text-champagne');
+                btn.classList.add('text-beige-dark/60');
+            });
+            const activeBtn = document.getElementById(`nav-${tabName}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('text-beige-dark/60');
+                activeBtn.classList.add('text-champagne');
+            }
+        }
+
+        // Storage Management
+        function saveTicketsToStorage() {
+            localStorage.setItem('aura_tickets', JSON.stringify(tickets));
+        }
+
+        // Render Concert Tickets Grid
+        function renderTickets() {
+            const grid = document.getElementById('ticketsGrid');
+            grid.innerHTML = '';
+
+            if (tickets.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full py-16 text-center glass-panel rounded-3xl border border-champagne/20">
+                        <i data-lucide="ticket" class="w-12 h-12 text-champagne/40 mx-auto mb-3"></i>
+                        <p class="apple-font text-sm font-bold text-beige">NO CONCERT MEMORIES SAVED YET.</p>
+                        <p class="text-xs text-beige-dark/50 mt-1">Click 'ADD MEMORY' or 'IMPORT PASS' to start your collection.</p>
+                    </div>
+                `;
+                lucide.createIcons();
+                return;
+            }
+
+            tickets.forEach(ticket => {
+                const mediaCount = ticket.media ? ticket.media.length : 0;
+                const card = document.createElement('div');
+                card.className = "glass-card rounded-3xl overflow-hidden relative group cursor-pointer border border-champagne/20";
+                card.onclick = () => openPassDetailModal(ticket.id);
+
+                card.innerHTML = `
+                    <div class="h-44 relative overflow-hidden bg-charcoal-900">
+                        <img src="${(ticket.media && ticket.media[0]) ? ticket.media[0] : 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80'}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-80">
+                        <div class="absolute inset-0 bg-gradient-to-t from-charcoal-950 via-charcoal-950/40 to-transparent"></div>
+                        <span class="apple-font absolute top-3 right-3 text-[10px] bg-charcoal-950/80 backdrop-blur-md border border-champagne/30 text-champagne-light px-2.5 py-1 rounded-full font-bold">
+                            <i data-lucide="image" class="w-3 h-3 inline mr-1"></i>${mediaCount} / 10 MEDIA
+                        </span>
+                        <div class="absolute bottom-3 left-4 right-4">
+                            <span class="apple-font text-[10px] tracking-widest text-champagne font-bold block">${ticket.venue}</span>
+                            <h3 class="apple-font text-lg text-beige font-bold truncate">${ticket.artist}</h3>
+                        </div>
+                    </div>
+
+                    <div class="p-4 space-y-3 ticket-stub">
+                        <div class="flex items-center justify-between text-xs border-b border-champagne/10 pb-2">
+                            <span class="text-beige-dark/60 truncate max-w-[180px]">${ticket.tour}</span>
+                            <span class="apple-font font-bold text-champagne-light">${ticket.date}</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2 text-[11px]">
+                            <div>
+                                <span class="apple-font text-beige-dark/50 block text-[9px]">ZONE</span>
+                                <span class="text-beige font-medium">${ticket.zone || 'GA'}</span>
+                            </div>
+                            <div>
+                                <span class="apple-font text-beige-dark/50 block text-[9px]">SEAT</span>
+                                <span class="text-beige font-medium">${ticket.seat || 'N/A'}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+            lucide.createIcons();
+        }
+
+        // Filter / Search Tickets
+        function filterTickets() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const sortBy = document.getElementById('sortSelect').value;
+
+            let filtered = tickets.filter(t => 
+                t.artist.toLowerCase().includes(query) ||
+                t.tour.toLowerCase().includes(query) ||
+                t.venue.toLowerCase().includes(query)
+            );
+
+            if (sortBy === 'newest') filtered.sort((a,b) => new Date(b.date) - new Date(a.date));
+            if (sortBy === 'oldest') filtered.sort((a,b) => new Date(a.date) - new Date(b.date));
+            if (sortBy === 'price') filtered.sort((a,b) => (b.price || 0) - (a.price || 0));
+
+            tickets = filtered;
+            renderTickets();
+            tickets = JSON.parse(localStorage.getItem('aura_tickets')) || sampleTickets;
+        }
+
+        // 10-MEDIA GALLERY PICKER LOGIC
+        function triggerMediaPicker() {
+            document.getElementById('mediaFileInput').click();
+        }
+
+        function handleMediaSelect(event) {
+            const files = Array.from(event.target.files);
+            
+            if (selectedMediaFiles.length + files.length > 10) {
+                alert(`Maximum limit is 10 media files per concert ticket. You can add ${10 - selectedMediaFiles.length} more.`);
+                return;
+            }
+
+            files.forEach(file => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    selectedMediaFiles.push(e.target.result);
+                    renderMediaThumbnails();
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function renderMediaThumbnails() {
+            const container = document.getElementById('modalMediaThumbnails');
+            const counter = document.getElementById('mediaCounterBadge');
+            container.innerHTML = '';
+
+            counter.textContent = `${selectedMediaFiles.length} / 10 MEDIA ITEMS`;
+
+            selectedMediaFiles.forEach((src, idx) => {
+                const thumb = document.createElement('div');
+                thumb.className = "relative rounded-lg overflow-hidden border border-champagne/30 h-16 group bg-charcoal-900";
+                thumb.innerHTML = `
+                    <img src="${src}" class="w-full h-full object-cover">
+                    <button type="button" onclick="removeMediaItem(${idx})" class="absolute top-1 right-1 bg-charcoal-950/80 text-red-400 p-0.5 rounded-full opacity-90 hover:opacity-100">
+                        <i data-lucide="x" class="w-3 h-3"></i>
+                    </button>
+                `;
+                container.appendChild(thumb);
+            });
+            lucide.createIcons();
+        }
+
+        function removeMediaItem(index) {
+            selectedMediaFiles.splice(index, 1);
+            renderMediaThumbnails();
+        }
+
+        // Add / Edit Ticket Modal
+        function openAddTicketModal() {
+            document.getElementById('ticketForm').reset();
+            document.getElementById('ticketId').value = '';
+            selectedMediaFiles = [];
+            renderMediaThumbnails();
+            document.getElementById('ticketModal').classList.remove('hidden');
+        }
+
+        function closeTicketModal() {
+            document.getElementById('ticketModal').classList.add('hidden');
+        }
+
+        function saveTicket(event) {
+            event.preventDefault();
+            const id = document.getElementById('ticketId').value || 't_' + Date.now();
+            const newTicket = {
+                id,
+                artist: document.getElementById('inputArtist').value.toUpperCase(),
+                tour: document.getElementById('inputTour').value,
+                venue: document.getElementById('inputVenue').value,
+                date: document.getElementById('inputDate').value,
+                price: parseFloat(document.getElementById('inputPrice').value) || 0,
+                zone: document.getElementById('inputZone').value,
+                seat: document.getElementById('inputSeat').value,
+                notes: document.getElementById('inputNotes').value,
+                media: selectedMediaFiles.length > 0 ? selectedMediaFiles : [
+                    "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80"
+                ]
+            };
+
+            const index = tickets.findIndex(t => t.id === id);
+            if (index >= 0) tickets[index] = newTicket;
+            else tickets.unshift(newTicket);
+
+            saveTicketsToStorage();
+            renderTickets();
+            updateWrappedStats();
+            closeTicketModal();
+        }
+
+        // PASS DETAIL MODAL & DYNAMIC REFRESHING GATE PASS
+        function openPassDetailModal(ticketId) {
+            const ticket = tickets.find(t => t.id === ticketId);
+            if (!ticket) return;
+
+            const modalContent = document.getElementById('passModalContent');
+            
+            // Build Media Gallery Carousel
+            let galleryHTML = '';
+            if (ticket.media && ticket.media.length > 0) {
+                galleryHTML = `
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="apple-font text-xs font-bold text-champagne-light">MEDIA MEMORIES (${ticket.media.length}/10)</span>
+                        </div>
+                        <div class="flex space-x-2 overflow-x-auto pb-2 scrollbar-none">
+                            ${ticket.media.map(item => `
+                                <div class="flex-shrink-0 w-24 h-24 rounded-xl overflow-hidden border border-champagne/30 bg-charcoal-900">
+                                    ${item.startsWith('data:video') ? `
+                                        <video src="${item}" controls class="w-full h-full object-cover"></video>
+                                    ` : `
+                                        <img src="${item}" class="w-full h-full object-cover">
+                                    `}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            modalContent.innerHTML = `
+                <div class="text-center space-y-1 border-b border-champagne/15 pb-4">
+                    <span class="apple-font text-[10px] tracking-widest text-champagne font-bold">${ticket.venue}</span>
+                    <h2 class="apple-font text-2xl font-bold text-beige">${ticket.artist}</h2>
+                    <p class="text-xs text-beige-dark/60">${ticket.tour}</p>
+                </div>
+
+                <!-- DYNAMIC REFRESHING QR CODE FOR GATE ENTRY -->
+                <div class="bg-charcoal-900/90 rounded-2xl p-4 border border-champagne/30 text-center space-y-3">
+                    <div class="flex items-center justify-between text-[11px] text-beige-dark/70">
+                        <span class="apple-font font-semibold">DYNAMIC GATE PASS</span>
+                        <span class="apple-font text-champagne font-mono" id="qrTimerText">AUTO-REFRESH IN 30S</span>
+                    </div>
+                    
+                    <div class="bg-white p-3 rounded-xl inline-block shadow-inner" id="qrcodeCanvasContainer">
+                        <div id="qrcode"></div>
+                    </div>
+
+                    <div class="apple-font text-[10px] text-beige-dark/50 tracking-widest font-mono" id="qrHashText">
+                        HASH: ${Math.random().toString(36).substring(2, 12).toUpperCase()}
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-3 gap-2 text-center text-xs bg-charcoal-900/60 p-3 rounded-xl border border-champagne/10">
+                    <div>
+                        <span class="apple-font text-beige-dark/50 text-[9px] block">ZONE</span>
+                        <span class="font-semibold text-beige">${ticket.zone || 'GA'}</span>
+                    </div>
+                    <div>
+                        <span class="apple-font text-beige-dark/50 text-[9px] block">SEAT</span>
+                        <span class="font-semibold text-beige">${ticket.seat || 'N/A'}</span>
+                    </div>
+                    <div>
+                        <span class="apple-font text-beige-dark/50 text-[9px] block">DATE</span>
+                        <span class="font-semibold text-champagne">${ticket.date}</span>
+                    </div>
+                </div>
+
+                ${galleryHTML}
+
+                <div class="pt-2 flex justify-between items-center">
+                    <button onclick="deleteTicket('${ticket.id}')" class="apple-font text-xs text-red-400 hover:text-red-300 flex items-center space-x-1 font-semibold">
+                        <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                        <span>DELETE MEMORY</span>
+                    </button>
+
+                    <button onclick="saveToAppleGoogleWallet('${ticket.artist}')" class="apple-font bg-charcoal-800 border border-champagne/30 text-champagne-light hover:border-champagne px-4 py-2 rounded-xl text-xs font-bold flex items-center space-x-2">
+                        <i data-lucide="wallet" class="w-4 h-4"></i>
+                        <span>EXPORT PASS (.PKPASS)</span>
+                    </button>
+                </div>
+            `;
+
+            document.getElementById('passDetailModal').classList.remove('hidden');
+            lucide.createIcons();
+
+            // Generate initial QR Code
+            generateDynamicQRCode();
+            startQRTimer();
+        }
+
+        function closePassModal() {
+            document.getElementById('passDetailModal').classList.add('hidden');
+            if (dynamicQrTimer) clearInterval(dynamicQrTimer);
+        }
+
+        function generateDynamicQRCode() {
+            const container = document.getElementById('qrcode');
+            if (!container) return;
+            container.innerHTML = '';
+            const randomCode = `CONCERT_WALLET_GATE_${Date.now()}_${Math.random().toString(36).substring(7)}`;
+            new QRCode(container, {
+                text: randomCode,
+                width: 130,
+                height: 130,
+                colorDark: "#0C0B0A",
+                colorLight: "#FFFFFF",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+        }
+
+        function startQRTimer() {
+            let seconds = 30;
+            if (dynamicQrTimer) clearInterval(dynamicQrTimer);
+
+            dynamicQrTimer = setInterval(() => {
+                seconds--;
+                const timerText = document.getElementById('qrTimerText');
+                if (timerText) timerText.textContent = `AUTO-REFRESH IN ${seconds}S`;
+
+                if (seconds <= 0) {
+                    seconds = 30;
+                    generateDynamicQRCode();
+                    const hashText = document.getElementById('qrHashText');
+                    if (hashText) hashText.textContent = `HASH: ${Math.random().toString(36).substring(2, 12).toUpperCase()}`;
+                }
+            }, 1000);
+        }
+
+        function deleteTicket(id) {
+            if (confirm("Are you sure you want to delete this concert memory?")) {
+                tickets = tickets.filter(t => t.id !== id);
+                saveTicketsToStorage();
+                renderTickets();
+                updateWrappedStats();
+                closePassModal();
+            }
+        }
+
+        function saveToAppleGoogleWallet(artist) {
+            alert(`Generating Apple & Google Wallet Pass for ${artist}... Saved directly to Lock Screen.`);
+        }
+
+        // VENUES & NAVIGATION GUIDE LOGIC
+        function renderVenuesPills() {
+            const container = document.getElementById('venuePillsContainer');
+            container.innerHTML = '';
+
+            Object.keys(venuesData).forEach(key => {
+                const pill = document.createElement('button');
+                const isActive = key === activeVenueKey;
+                pill.className = `px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition border ${
+                    isActive 
+                    ? 'bg-champagne text-charcoal-950 border-champagne shadow-gold-glow' 
+                    : 'bg-charcoal-800/80 text-beige-dark border-champagne/20 hover:border-champagne/50'
+                }`;
+                pill.textContent = key;
+                pill.onclick = () => {
+                    activeVenueKey = key;
+                    renderVenuesPills();
+                    renderVenueDetails(key);
+                };
+                container.appendChild(pill);
+            });
+        }
+
+        function renderVenueDetails(key) {
+            const venue = venuesData[key];
+            const card = document.getElementById('venueDetailCard');
+
+            card.innerHTML = `
+                <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-champagne/15 pb-4 gap-2">
+                    <div>
+                        <span class="apple-font text-[10px] text-champagne font-bold">CONCERT ARENA GUIDE</span>
+                        <h2 class="apple-font text-xl lg:text-2xl font-bold text-beige mt-0.5">${venue.name}</h2>
+                    </div>
+                    <span class="apple-font text-xs bg-champagne/10 border border-champagne/30 text-champagne px-3 py-1 rounded-full w-fit font-bold">
+                        CAPACITY: ${venue.capacity}
+                    </span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3">
+                            <i data-lucide="train" class="w-5 h-5 text-champagne mt-0.5"></i>
+                            <div>
+                                <h4 class="text-xs font-semibold text-beige">BTS / MRT / Rail Transport</h4>
+                                <p class="text-xs text-beige-dark/70 mt-0.5">${venue.bts}</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-3">
+                            <i data-lucide="ship" class="w-5 h-5 text-champagne mt-0.5"></i>
+                            <div>
+                                <h4 class="text-xs font-semibold text-beige">Boat / Canal Route</h4>
+                                <p class="text-xs text-beige-dark/70 mt-0.5">${venue.boat}</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-3">
+                            <i data-lucide="bus" class="w-5 h-5 text-champagne mt-0.5"></i>
+                            <div>
+                                <h4 class="text-xs font-semibold text-beige">Van & Bus Hub</h4>
+                                <p class="text-xs text-beige-dark/70 mt-0.5">${venue.van}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3">
+                            <i data-lucide="parking-square" class="w-5 h-5 text-champagne mt-0.5"></i>
+                            <div>
+                                <h4 class="text-xs font-semibold text-beige">Parking Spots</h4>
+                                <p class="text-xs text-beige-dark/70 mt-0.5">${venue.parking}</p>
+                            </div>
+                        </div>
+
+                        <div class="p-3.5 bg-charcoal-900/80 rounded-2xl border border-champagne/20">
+                            <div class="flex items-center space-x-2 text-champagne mb-1">
+                                <i data-lucide="lightbulb" class="w-4 h-4"></i>
+                                <span class="apple-font text-xs font-bold">TRAFFIC PRO HACK</span>
+                            </div>
+                            <p class="text-xs text-beige-dark/80 leading-relaxed">${venue.hacks}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            lucide.createIcons();
+        }
+
+        // TRANSIT GUIDES RENDER
+        function renderTransitGuides() {
+            const grid = document.getElementById('transitGuidesGrid');
+            grid.innerHTML = `
+                <div class="p-4 bg-charcoal-900/70 rounded-2xl border border-champagne/15">
+                    <span class="apple-font text-xs font-bold text-green-400 block mb-1">BTS SUKHUMVIT LINE</span>
+                    <p class="text-xs text-beige-dark/70">Connects directly to Siam Paragon (Siam), UOB Live (Phrom Phong), and BITEC Live (Bang Na).</p>
+                </div>
+                <div class="p-4 bg-charcoal-900/70 rounded-2xl border border-champagne/15">
+                    <span class="apple-font text-xs font-bold text-pink-400 block mb-1">MRT PINK LINE</span>
+                    <p class="text-xs text-beige-dark/70">Direct extension into Impact Arena and Thunder Dome Challenger halls.</p>
+                </div>
+                <div class="p-4 bg-charcoal-900/70 rounded-2xl border border-champagne/15">
+                    <span class="apple-font text-xs font-bold text-blue-400 block mb-1">MRT BLUE LINE</span>
+                    <p class="text-xs text-beige-dark/70">Connects Union Hall (Phahon Yothin) and MGI Hall (Phetchaburi) seamlessly.</p>
+                </div>
+            `;
+        }
+
+        // CONCERT WRAPPED STATS
+        function updateWrappedStats() {
+            document.getElementById('statTotalCount').textContent = tickets.length;
+            
+            const totalSpent = tickets.reduce((acc, curr) => acc + (curr.price || 0), 0);
+            document.getElementById('statTotalSpent').textContent = '฿' + totalSpent.toLocaleString();
+
+            // Calculate Favorite Venue
+            const venueCounts = {};
+            tickets.forEach(t => {
+                venueCounts[t.venue] = (venueCounts[t.venue] || 0) + 1;
+            });
+            let top = '-';
+            let maxCount = 0;
+            for (let v in venueCounts) {
+                if (venueCounts[v] > maxCount) {
+                    maxCount = venueCounts[v];
+                    top = v;
+                }
+            }
+            document.getElementById('statTopVenue').textContent = top.length > 20 ? top.substring(0, 18) + '...' : top;
+
+            document.getElementById('statTotalHours').textContent = (tickets.length * 3) + ' HRS';
+
+            // Render Artist Leaderboard
+            const artistCounts = {};
+            tickets.forEach(t => {
+                artistCounts[t.artist] = (artistCounts[t.artist] || 0) + 1;
+            });
+
+            const leaderboard = document.getElementById('artistLeaderboard');
+            leaderboard.innerHTML = '';
+            
+            Object.keys(artistCounts).forEach(artist => {
+                const row = document.createElement('div');
+                row.className = "flex items-center justify-between p-3 bg-charcoal-900/60 rounded-xl border border-champagne/10";
+                row.innerHTML = `
+                    <span class="apple-font text-xs font-bold text-beige">${artist}</span>
+                    <span class="apple-font text-xs text-champagne bg-champagne/10 px-2.5 py-0.5 rounded-full border border-champagne/20 font-semibold">${artistCounts[artist]} SHOWS</span>
+                `;
+                leaderboard.appendChild(row);
+            });
+        }
+
+        // OFFLINE MODE TOGGLE
+        function toggleOfflineMode() {
+            offlineMode = !offlineMode;
+            const statusText = document.getElementById('offlineStatusText');
+            const indicator = document.getElementById('offlineIndicator');
+
+            if (offlineMode) {
+                statusText.textContent = "OFFLINE MODE ACTIVE";
+                indicator.className = "w-2 h-2 rounded-full bg-amber-400 animate-ping";
+                alert("100% Offline Mode Enabled. All ticket codes & media are cached locally for network outages.");
+            } else {
+                statusText.textContent = "100% VAULT OFFLINE";
+                indicator.className = "w-2 h-2 rounded-full bg-emerald-500 animate-pulse";
+            }
+        }
+
+        // IMPORTER SIMULATIONS
+        function triggerFileInput() {
+            document.getElementById('pdfFileInput').click();
+        }
+
+        function handleFileImport(event) {
+            const file = event.target.files[0];
+            if (file) {
+                alert(`Parsing E-Ticket PDF: ${file.name}... E-Ticket imported into vault!`);
+            }
+        }
+
+        function startCameraScanner() {
+            alert("Opening camera viewport to scan physical RFID / Hard Card barcode...");
+        }
+
+        // GEOFENCE SIMULATOR
+        function showGeofenceBanner() {
+            document.getElementById('geofenceBanner').classList.remove('hidden');
+        }
+
+        function closeGeofenceBanner() {
+            document.getElementById('geofenceBanner').classList.add('hidden');
+        }
+
+        function openQuickGatePass() {
+            closeGeofenceBanner();
+            if (tickets.length > 0) {
+                openPassDetailModal(tickets[0].id);
+            }
+        }
+    </script>
+</body>
+</html>
